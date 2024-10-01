@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>Trang quản trị</title>
+	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+	<link rel="icon" href="/assets/img/icon.ico" type="image/x-icon"/>
+
+	<!-- Fonts and icons -->
+	<script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	<script>
+		WebFont.load({
+			google: {"families":["Roboto:300,400,500,700"]},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css']},
+			active: function() {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/assets/css/atlantis.min.css">
+
+	<style>
+		body {
+			font-family: 'Roboto', sans-serif;
+			background-color: #e9ecef;
+			color: #495057;
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		h1 {
+			text-align: center;
+			margin-top: 40px;
+			font-size: 2.8em;
+			font-weight: 500;
+			color: #343a40;
+		}
+
+		.dashboard-container {
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			padding: 20px;
+			gap: 20px;
+		}
+
+		.dashboard-card {
+			background: linear-gradient(135deg, #4f81fe, #0059fe);
+			border: 1px solid #ddd;
+			border-radius: 20px;
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+			padding: 30px;
+			width: 250px;
+			text-align: center;
+			transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+		}
+
+		.dashboard-card:hover {
+			transform: translateY(-8px);
+			box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+			background: linear-gradient(135deg, #fe006a, #fe4f9e);
+		}
+
+		.dashboard-card .title {
+			font-size: 1.5em;
+			color: #fff;
+			margin-bottom: 10px;
+		}
+
+		.dashboard-card .value {
+			font-size: 2.8em;
+			font-weight: bold;
+			color: #fff;
+		}
+
+		.dashboard-card a {
+			color: #ffffff;
+			text-decoration: none;
+			font-weight: 600;
+			display: inline-block;
+			margin-top: 10px;
+			padding: 10px 20px;
+			background-color: rgba(255, 255, 255, 0.2);
+			border-radius: 8px;
+			transition: background-color 0.3s ease, transform 0.2s ease;
+		}
+
+		.dashboard-card a:hover {
+			background-color: rgba(255, 255, 255, 0.4);
+			transform: scale(1.05);
+		}
+
+		.blink {
+			font-size: 24px;
+			color: yellow;
+			animation: blink 1s infinite;
+			padding: 0 10px;
+		}
+
+		.chart-container {
+			display: flex;
+			justify-content: center;
+			margin-top: 40px;
+		}
+
+		@keyframes blink {
+			0% { opacity: 1; }
+			50% { opacity: 0; }
+			100% { opacity: 1; }
+		}
+
+		@media (max-width: 768px) {
+			.dashboard-card {
+				width: 100%;
+				max-width: 300px;
+			}
+
+			.dashboard-container {
+				flex-direction: column;
+				align-items: center;
+			}
+		}
+	</style>
+</head>
+<body>
+<div class="wrapper">
+	<th:block th:replace="~{admin/fragments/header :: header}"></th:block>
+	<th:block th:replace="~{admin/fragments/navbar :: navbar}"></th:block>
+
+	<div class="main-panel">
+		<div class="content">
+			<div class="dashboard-container">
+				<div class="dashboard-card">
+					<span class="title">
+						<i class="fas fa-box"></i> Đơn hàng mới
+					</span>
+					<p class="value" th:text="${newOrders}"></p>
+					<a th:href="@{/admin/orders}">
+						<span th:if="${newOrders > 0}">
+							<i class="fas fa-bell blink"> Xác nhận ngay</i>
+						</span>
+					</a>
+				</div>
+
+				<div class="dashboard-card">
+					<span class="title">
+						<i class="fas fa-dollar-sign"></i> Tổng doanh thu
+					</span>
+					<p class="value" th:text="${#numbers.formatInteger(totalRevenue, 3, 'DEFAULT')}">VNĐ</p>
+					<a th:href="@{/admin/reports}">Xem chi tiết</a>
+				</div>
+
+				<div class="dashboard-card">
+					<span class="title">
+						<i class="fas fa-check-circle"></i> Đơn hàng thành công
+					</span>
+					<p class="value" th:text="${successfulOrders}"></p>
+					<a th:href="@{/admin/orders}">Xem chi tiết</a>
+				</div>
+
+				<div class="dashboard-card">
+					<span class="title">
+						<i class="fas fa-times-circle"></i> Đơn hàng hủy
+					</span>
+					<p class="value" th:text="${cancelledOrders}"></p>
+					<a th:href="@{/admin/orders}">Xem chi tiết</a>
+				</div>
+
+<!--				<div class="dashboard-card">-->
+<!--					<span class="title">-->
+<!--						<i class="fas fa-users"></i> Số lượng người đăng ký-->
+<!--					</span>-->
+<!--					<p class="value" th:text="${totalUsers}"></p>-->
+<!--					<a th:href="@{/admin/users}">Xem chi tiết</a>-->
+<!--				</div>-->
+			</div>
+
+			<div class="chart-container">
+				<canvas id="monthlySalesChart"></canvas>
+			</div>
+			<input type="hidden" id="monthlyStats" th:value="${monthlyStats}" />
+		</div>
+	</div>
+</div>
+
+<script>
+	// Lấy dữ liệu từ phần tử HTML
+	var monthlyStatsData = document.getElementById('monthlyStats').value;
+	console.log(monthlyStatsData);
+
+	// Chuyển dữ liệu từ string JSON thành mảng JavaScript
+	var monthlyStats = JSON.parse(monthlyStatsData);
+
+	// Khai báo các mảng để lưu trữ dữ liệu từ monthlyStats
+	var labels = [];
+	var quantities = [];
+	var sums = [];
+	var avgPrices = [];
+
+	// Trích xuất dữ liệu từ monthlyStats và lưu vào các mảng tương ứng
+	monthlyStats.forEach(stat => {
+		labels.push(stat[0]);        // Tháng
+		quantities.push(stat[1]);    // Số lượng sản phẩm bán được
+		sums.push(stat[2]);          // Tổng giá trị
+		avgPrices.push(stat[3]);     // Giá trung bình
+	});
+
+	// Tạo biểu đồ bằng thư viện Chart.js
+	var ctx = document.getElementById('monthlySalesChart').getContext('2d');
+	var monthlySalesChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Số lượng',
+				data: quantities,
+				backgroundColor: 'rgba(255, 99, 132, 0.2)',
+				borderColor: 'rgba(255, 99, 132, 1)',
+				borderWidth: 1
+			}, {
+				label: 'Doanh thu theo tháng',
+				data: sums,
+				backgroundColor: 'rgba(54, 162, 235, 0.2)',
+				borderColor: 'rgba(54, 162, 235, 1)',
+				borderWidth: 1
+			}, {
+				label: 'Giá trung bình',
+				data: avgPrices,
+				backgroundColor: 'rgba(255, 206, 86, 0.2)',
+				borderColor: 'rgba(255, 206, 86, 1)',
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			}
+		}
+	});
+</script>
+
+<script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="/assets/js/core/popper.min.js"></script>
+<script src="/assets/js/core/bootstrap.min.js"></script>
+<script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+<script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="/assets/js/plugin/chart.js/chart.min.js"></script>
+<script src="/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+<script src="/assets/js/plugin/chart-circle/circles.min.js"></script>
+<script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+<script src="/assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
+<script src="/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
+<script src="/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+<script src="/assets/js/atlantis.min.js"></script>
+<script src="/assets/js/setting-demo.js"></script>
+<script src="/assets/js/demo.js"></script>
+</body>
+</html>

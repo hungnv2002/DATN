@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Đăng nhập - DR SPORT</title>
+    <link rel="icon" href="/images/logo.png" />
+    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="fonts/fontawesome/fontawesome.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <style>
+        /* Tổng quan cho trang đăng nhập */
+        .user-form-part {
+            background: url('/images/bc.jpg') no-repeat center center/cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .user-form-content-wrapper {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .user-form-logo img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .user-form-title h2 {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .user-form-title p {
+            font-size: 14px;
+            text-align: center;
+            color: #666;
+        }
+
+        .form-control {
+            margin-bottom: 20px;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .form-check-label {
+            font-size: 13px;
+        }
+
+        .form-button button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff006a;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-button button:hover {
+            background-color: #e00060;
+        }
+
+        .user-form-remind {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .user-form-remind a {
+            color: #ff006a;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .user-form-remind a:hover {
+            text-decoration: underline;
+        }
+
+        /* Thiết kế phản hồi (Responsive) */
+        @media (max-width: 576px) {
+            .user-form-content-wrapper {
+                padding: 20px;
+            }
+
+            .form-button button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+<section class="user-form-part">
+    <div class="user-form-content-wrapper">
+
+        <div class="user-form-title">
+            <h2>Đăng Nhập</h2>
+        </div>
+        <div class="user-form-group">
+            <form th:action="@{/doLogin}" method="post">
+                <div th:if="${param.accountLocked}" class="alert alert-danger" role="alert">
+                    Tài khoản của bạn đã bị khóa. Vui lòng liên hệ nvh672002@gmail.com để biết thêm chi tiết.
+                </div>
+                <div th:if="${param.error}" class="alert alert-danger">
+                    Tài khoản hoặc mật khẩu không chính xác!
+                </div>
+
+                <div class="form-group">
+                    <input type="email" name="username" class="form-control" placeholder="Địa chỉ Email" required autocomplete="off">
+                    <div id="email-error" class="alert alert-danger" style="display:none;">Email không được để trống</div>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="Mật khẩu" id="myPass" required>
+                    <div id="password-error" class="alert alert-danger" style="display:none;">Mật khẩu không được để trống</div>
+                </div>
+
+                <div class="form-check mb-3 d-flex justify-content-between">
+                    <div>
+                        <input class="form-check-input" type="checkbox" id="check" onclick="hidePass()">
+                        <label class="form-check-label" for="check">Hiển thị mật khẩu</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                        <label class="form-check-label" for="remember">Ghi nhớ</label>
+                    </div>
+                </div>
+
+                <div class="form-button">
+                    <button type="submit">Đăng Nhập</button>
+                </div>
+            </form>
+        </div>
+        <div class="user-form-remind">
+            <p>Bạn chưa có tài khoản? <a th:href="@{/register}">Đăng ký tại đây</a></p>
+        </div>
+    </div>
+</section>
+
+<script>
+    function hidePass() {
+        var x = document.getElementById("myPass");
+        x.type = (x.type === "password") ? "text" : "password";
+    }
+</script>
+
+<script src="vendor/bootstrap/jquery-1.12.4.min.js"></script>
+<script src="vendor/bootstrap/popper.min.js"></script>
+<script src="vendor/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>

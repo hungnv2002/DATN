@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Đăng ký - DR SPORT</title>
+    <link rel="icon" href="/images/logo.png" />
+    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="fonts/fontawesome/fontawesome.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <style>
+        /* Tổng quan cho trang đăng ký */
+        .user-form-part {
+            background: url('/images/bc.jpg') no-repeat center center/cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .user-form-content-wrapper {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .user-form-logo img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .user-form-title h2 {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .user-form-title p {
+            font-size: 14px;
+            text-align: center;
+            color: #666;
+        }
+
+        .form-control {
+            margin-bottom: 20px;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .form-check-label {
+            font-size: 13px;
+        }
+
+        .form-button button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff006a;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-button button:hover {
+            background-color: #e00060;
+        }
+
+        .user-form-remind {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .user-form-remind a {
+            color: #ff006a;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .user-form-remind a:hover {
+            text-decoration: underline;
+        }
+
+        /* Thiết kế phản hồi (Responsive) */
+        @media (max-width: 576px) {
+            .user-form-content-wrapper {
+                padding: 20px;
+            }
+
+            .form-button button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<section class="user-form-part">
+    <div class="user-form-content-wrapper">
+
+        <div class="user-form-title">
+            <h2>Đăng Ký</h2>
+            <p>Thiết Lập Một Tài Khoản Mới</p>
+        </div>
+        <div class="user-form-group">
+            <form th:action="@{/register}" method="post" th:object="${user}" class="user-form">
+                <div class="form-group">
+                    <input type="email" th:field="*{email}" id="email" class="form-control" placeholder="Địa chỉ Email" autocomplete="off" required="required" />
+                    <small th:if="${error}" th:text="${error}" class="text-danger"></small>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Họ và tên" autocomplete="off" required="required" />
+                </div>
+
+                <div class="form-group">
+                    <input type="password" th:field="*{password}" class="form-control" id="myPass" name="password" placeholder="Mật khẩu" required="required" />
+                </div>
+
+                <div class="form-group">
+                    <input type="password" id="confirmPass" class="form-control" name="confirmPassword" placeholder="Nhập lại mật khẩu" required="required" />
+                    <small id="password-match-message" class="text-danger"></small>
+                </div>
+
+                <div class="form-check mb-3 d-flex justify-content-between">
+                    <div>
+                        <input class="form-check-input" type="checkbox" id="check" onclick="hidePass()" />
+                        <label class="form-check-label" for="check">Hiển thị mật khẩu</label>
+                    </div>
+                </div>
+
+                <div class="form-button">
+                    <button type="submit" id="register-button">Đăng Ký</button>
+                </div>
+            </form>
+        </div>
+        <div class="user-form-remind">
+            <p>Bạn đã có tài khoản? <a th:href="@{/login}">Đăng nhập tại đây</a></p>
+        </div>
+    </div>
+</section>
+
+<script>
+    function hidePass() {
+        var pass = document.getElementById("myPass");
+        var confirmPass = document.getElementById("confirmPass");
+        if (pass.type === "password" && confirmPass.type === "password") {
+            pass.type = "text";
+            confirmPass.type = "text";
+        } else {
+            pass.type = "password";
+            confirmPass.type = "password";
+        }
+    }
+
+    $(document).ready(function() {
+        $("#confirmPass").on("keyup", function() {
+            var password = $("#myPass").val();
+            var confirmPassword = $("#confirmPass").val();
+            var message = $("#password-match-message");
+
+            if (password === confirmPassword) {
+                message.text("Mật khẩu khớp nhau").removeClass("text-danger").addClass("text-success");
+                $("#register-button").prop("disabled", false);
+            } else {
+                message.text("Mật khẩu không khớp!").removeClass("text-success").addClass("text-danger");
+                $("#register-button").prop("disabled", true);
+            }
+        });
+    });
+</script>
+
+<script src="vendor/bootstrap/jquery-1.12.4.min.js"></script>
+<script src="vendor/bootstrap/popper.min.js"></script>
+<script src="vendor/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>
