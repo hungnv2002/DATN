@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 
 @SuppressWarnings("serial")
@@ -20,6 +21,7 @@ public class OrderDetail implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long orderDetailId;
 	private int quantity;
+	private Date orderDate;
 	private Double price;
 	
 	@ManyToOne

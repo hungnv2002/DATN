@@ -1,18 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <meta
-    http-equiv="content-type"
-    content="text/html;charset=utf-8"
-  />
-  <head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>DR SPORT</title>
-<link rel="icon" href="/images/logo.png" />
+    <link rel="icon" href="/images/logo.png" />
     <link rel="stylesheet" href="fonts/flaticon/flaticon.css" />
     <link rel="stylesheet" href="fonts/icofont/icofont.min.css" />
     <link rel="stylesheet" href="fonts/fontawesome/fontawesome.min.css" />
@@ -21,18 +15,106 @@
     <link rel="stylesheet" href="vendor/niceselect/nice-select.min.css" />
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/error.css" />
-  </head>
-  <body>
-    <section class="error-part">
-      <div class="container">
-        <h1>404 | Không tìm thấy!</h1>
-        <img class="img-fluid" src="/images/error.png" alt="error" />
-        <h3>LỖI! Không thể tìm thấy trang này</h3>
-        <p>Có vẻ như không có gì được tìm thấy tại vị trí này.</p>
-        <a th:href="@{/}">Trang chủ</a>
-      </div>
-    </section>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/contact.css">
 
-  </body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+
+<!--************************************
+            Header Start
+    *************************************-->
+<header th:replace="~{/web/fragments/header :: header}"></header>
+<!--************************************
+        Header End
+*************************************-->
+
+<section class="home-index-slider slider-arrow slider-dots">
+    <div class="banner-part banner-1">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 col-lg-6">
+                    <div class="banner-content">
+                        <p>DR SPORT là cửa hàng thể thao hàng đầu, chuyên cung cấp các sản phẩm chất lượng cao dành cho những người đam mê thể thao và hoạt động ngoài trời. Tại DR SPORT, bạn sẽ tìm thấy các trang thiết bị, dụng cụ và trang phục từ các thương hiệu nổi tiếng, đáp ứng mọi nhu cầu luyện tập và thi đấu của bạn. Với phương châm "Chất lượng tạo nên thành công", chúng tôi cam kết mang đến cho khách hàng trải nghiệm mua sắm tốt nhất cùng với sự tư vấn chuyên nghiệp từ đội ngũ nhân viên giàu kinh nghiệm.</p>
+                        <div class="banner-btn">
+                            <a class="btn btn-inline"
+                               th:href="@{/products}">
+                                <span>Mua sắm ngay!</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="banner-img">
+                        <img src="images/home/index/04.png" alt="index" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="banner-part banner-2">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 col-lg-6">
+                    <div class="banner-img">
+                        <img src="images/home/index/03.png" alt="index" />
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="banner-content">
+                        <h1>CAM KẾT CHẤT LƯỢNG</h1>
+                        <p>Tất cả sản phẩm chúng tôi cung cấp đều trải qua quá trình kiểm tra và đánh giá nghiêm túc.
+                            Các nhà cung cấp của chúng tôi thường xuyên được đánh giá lại để đảm bảo tuân thủ các chỉ dấn
+                            về chất lượng của chúng tôi</p>
+                        <div class="banner-btn">
+                            <a class="btn btn-inline" th:href="@{/products}">
+                                <span>Mua sắm ngay!</span>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section suggest-part">
+    <div class="container">
+        <ul class="suggest-slider slider-arrow">
+              <img src="images/notfoundjpeg" alt="suggest" />
+            <a th:href="@{/}">Trang chủ</a>
+        </ul>
+    </div>
+
+</section>
+
+
+<!--************************************
+            Footer Start
+    *************************************-->
+<footer th:replace="~{/web/fragments/footer :: footer}"></footer>
+
+<!--************************************
+        Footer End
+*************************************-->
+
+<script src="vendor/bootstrap/jquery-1.12.4.min.js"></script>
+<script src="vendor/bootstrap/popper.min.js"></script>
+<script src="vendor/bootstrap/bootstrap.min.js"></script>
+<script src="vendor/countdown/countdown.min.js"></script>
+<script src="vendor/niceselect/nice-select.min.js"></script>
+<script src="vendor/slickslider/slick.min.js"></script>
+<script src="vendor/venobox/venobox.min.js"></script>
+<script src="js/nice-select.js"></script>
+<script src="js/countdown.js"></script>
+<script src="js/accordion.js"></script>
+<script src="js/venobox.js"></script>
+<script src="js/slick.js"></script>
+<script src="js/main.js"></script>
+
+
+
+</body>
 </html>

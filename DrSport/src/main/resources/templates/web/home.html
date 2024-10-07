@@ -148,19 +148,24 @@
 										<a th:href="@{/productDetail(id=${item.productId})}">[[${item.productName}]]</a>
 									</h6>
 									<h6 class="product-price">
-										<del>[[${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')}+' đ']]</del>
-										<span>[[${#numbers.formatDecimal(item.price - (item.price * item.discount/100), 1, 'DEFAULT', 0, 'DEFAULT')}+' đ']]<small>/kg</small></span>
+										<th:block th:if="${item.discount > 0}">
+											<del>[[${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')} + ' đ']]</del>
+											<span>[[${#numbers.formatDecimal(item.price - (item.price * item.discount / 100), 1, 'DEFAULT', 0, 'DEFAULT')} + ' đ']]<small></small></span>
+										</th:block>
+										<th:block th:unless="${item.discount > 0}">
+											<span>[[${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')} + ' đ']]<small></small></span>
+										</th:block>
 									</h6>
 
 									 <th:block th:if="${item.quantity !=  0}">
 									  <a class="product-add1" title="Thêm giỏ hàng" th:href="@{/addToCart(productId=${item.productId})}">
-										<i class="fas fa-shopping-basket"></i><span>Thêm giỏ hàng</span>
+										<span>Thêm giỏ hàng</span>
 									</a>
 									 </th:block>
 
 									  <th:block th:if="${item.quantity ==  0}">
 									  <a class="product-add2">
-										<i class="fas fa-shopping-basket"></i><span>Hết hàng</span>
+										</i><span>Hết hàng</span>
 									</a>
 									 </th:block>
 
@@ -182,122 +187,6 @@
 		</div>
 	</section>
 
-	<section class="section feature-part">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="section-heading">
-						<h2>Mặt hàng nổi bật</h2>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					<ul class="new-slider slider-arrow">
-						<li th:each="item : ${bestSaleProduct20}">
-							<div class="product-card">
-								<div class="product-media">
-									<div class="product-label">
-										<label class="label-text feat">nổi bật</label>
-										<label class="label-text sale">- [[${item.discount + '%'}]]</label>
-									</div>
-									<button class="product-wish wish">
-										<i class="fas fa-heart"></i>
-									</button>
-									<a class="product-image" th:href="@{/productDetail(id=${item.productId})}">
-										<img th:src="@{'/loadImage?imageName='+${item.productImage}}" alt="product" />
-										</a>
-									<div class="product-widget">
-
-										<a
-											title="Product Video"
-											href="https://youtu.be/9xzcVxSBbG8"
-											class="venobox fas fa-play"
-											data-autoplay="true"
-											data-vbtype="video">
-										</a>
-										<a
-											title="Chi tiết sản phẩm"
-											th:href="@{/productDetail(id=${item.productId})}"
-											class="fas fa-eye">
-										</a>
-									</div>
-								</div>
-								<div class="product-content">
-									<div class="product-rating">
-										<i class="active icofont-star"></i>
-										<i class="active icofont-star"></i>
-										<i class="active icofont-star"></i>
-										<i class="active icofont-star"></i>
-										<i class="icofont-star"></i>
-									</div>
-
-									<h6 class="product-name">
-										<a th:href="@{/productDetail(id=${item.productId})}">[[${item.productName}]]</a>
-									</h6>
-									<h6 class="product-price">
-										<del>[[${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')}+' đ']]</del>
-										<span>[[${#numbers.formatDecimal(item.price - (item.price * item.discount/100), 1, 'DEFAULT', 0, 'DEFAULT')}+' đ']]</span>
-									</h6>
-
-									<th:block th:if="${item.quantity !=  0}">
-									  <a class="product-add1" title="Thêm giỏ hàng" th:href="@{/addToCart(productId=${item.productId})}">
-										<i class="fas fa-shopping-basket"></i><span>Thêm giỏ hàng</span>
-									</a>
-									 </th:block>
-
-									  <th:block th:if="${item.quantity ==  0}">
-									  <a class="product-add2">
-										<i class="fas fa-shopping-basket"></i><span>Hết hàng</span>
-									</a>
-									 </th:block>
-
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="section-btn-25">
-						<a th:href="@{/products}" class="btn btn-outline"><i
-							class="fas fa-eye"></i><span>xem thêm</span></a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<section class="section countdown-part">
-		<div class="container">
-			<div class="row align-items-center">
-				<div class="col-lg-6 mx-auto">
-					<div class="countdown-content">
-						<h3>ƯU ĐÃI GIẢM GIÁ ĐẶC BIỆT CHO CÁC MẶT HÀNG</h3>
-						<p>Chương trình ưu đãi hàng tuần.</p>
-						<div class="countdown countdown-clock" data-countdown="2022/12/22">
-							<span class="countdown-time"><span>00</span><small>days</small></span><span
-								class="countdown-time"><span>00</span><small>hours</small></span><span
-								class="countdown-time"><span>00</span><small>minutes</small></span><span
-								class="countdown-time"><span>00</span><small>seconds</small></span>
-						</div>
-						<a th:href="@{/products}" class="btn btn-inline"><i
-							class="fas fa-shopping-basket"></i><span>Mua sắm ngay bây
-								giờ</span></a>
-					</div>
-				</div>
-				<div class="col-lg-1"></div>
-				<div class="col-lg-5">
-					<div class="countdown-img">
-						<img src="images/logo.png" alt="countdown" />
-						<div class="countdown-off">
-							<span>20%</span><span>off</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
 	<section class="section newitem-part">
 		<div class="container">
 			<div class="row">
@@ -322,20 +211,20 @@
 									</button>
 									<a class="product-image" th:href="@{/productDetail(id=${item.productId})}">
 										<img th:src="@{'/loadImage?imageName='+${item.productImage}}" alt="product" />
-										</a>
+									</a>
 									<div class="product-widget">
 
 										<a
-											title="Product Video"
-											href="https://youtu.be/9xzcVxSBbG8"
-											class="venobox fas fa-play"
-											data-autoplay="true"
-											data-vbtype="video">
+												title="Product Video"
+												href="https://youtu.be/9xzcVxSBbG8"
+												class="venobox fas fa-play"
+												data-autoplay="true"
+												data-vbtype="video">
 										</a>
 										<a
-											title="Chi tiết sản phẩm"
-											th:href="@{/productDetail(id=${item.productId})}"
-											class="fas fa-eye">
+												title="Chi tiết sản phẩm"
+												th:href="@{/productDetail(id=${item.productId})}"
+												class="fas fa-eye">
 										</a>
 									</div>
 								</div>
@@ -351,22 +240,27 @@
 										<a th:href="@{/productDetail(id=${item.productId})}">[[${item.productName}]]</a>
 									</h6>
 									<h6 class="product-price">
-										<del>[[${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')}+' đ']]</del>
-										<span>[[${#numbers.formatDecimal(item.price - (item.price * item.discount/100), 1, 'DEFAULT', 0, 'DEFAULT')}+' đ']]</span>
+										<th:block th:if="${item.discount > 0}">
+											<del>[[${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')} + ' đ']]</del>
+											<span>[[${#numbers.formatDecimal(item.price - (item.price * item.discount / 100), 1, 'DEFAULT', 0, 'DEFAULT')} + ' đ']]<small></small></span>
+										</th:block>
+										<th:block th:unless="${item.discount > 0}">
+											<span>[[${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')} + ' đ']]<small></small></span>
+										</th:block>
 									</h6>
 
 									<th:block th:if="${item.quantity !=  0}">
-									  <a class="product-add1" title="Thêm giỏ hàng" th:href="@{/addToCart(productId=${item.productId})}">
-										<i class="fas fa-shopping-basket"></i><span>Thêm giỏ hàng</span>
-									</a>
-									 </th:block>
+										<a class="product-add1" title="Thêm giỏ hàng" th:href="@{/addToCart(productId=${item.productId})}">
+											<span>Thêm giỏ hàng</span>
+										</a>
+									</th:block>
 
-									  <th:block th:if="${item.quantity ==  0}">
-									  <a class="product-add2">
-										<i class="fas fa-shopping-basket"></i><span>Hết hàng</span>
-									</a>	       	                               
-									 </th:block>
-									
+									<th:block th:if="${item.quantity ==  0}">
+										<a class="product-add2">
+											<span>Hết hàng</span>
+										</a>
+									</th:block>
+
 								</div>
 							</div>
 						</li>
@@ -377,12 +271,42 @@
 				<div class="col">
 					<div class="section-btn-25">
 						<a th:href="@{/products}" class="btn btn-outline"><i
-							class="fas fa-eye"></i><span>xem thêm</span></a>
+								class="fas fa-eye"></i><span>xem thêm</span></a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+	<section class="section countdown-part">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-6 mx-auto">
+					<div class="countdown-content">
+						<h3>ƯU ĐÃI GIẢM GIÁ ĐẶC BIỆT CHO CÁC MẶT HÀNG</h3>
+						<p>Chương trình ưu đãi hàng tuần.</p>
+						<div class="countdown countdown-clock" data-countdown="2022/12/22">
+							<span class="countdown-time"><span>00</span><small>days</small></span><span
+								class="countdown-time"><span>00</span><small>hours</small></span><span
+								class="countdown-time"><span>00</span><small>minutes</small></span><span
+								class="countdown-time"><span>00</span><small>seconds</small></span>
+						</div>
+						<a th:href="@{/products}" class="btn btn-inline">
+							<span>Mua sắm ngay bây giờ</span></a>
+					</div>
+				</div>
+				<div class="col-lg-1"></div>
+				<div class="col-lg-5">
+					<div class="countdown-img">
+						<img src="images/logo.png" alt="countdown" />
+						<div class="countdown-off">
+							<span>20%</span><span>off</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
 
 
 

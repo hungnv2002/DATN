@@ -5,8 +5,113 @@
 <head>
 	<title></title>
 	<meta charset="utf-8">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!--	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
 
+		.header-part {
+			background-color: #4f81fe; /* Light background */
+			color: #343a40; /* Dark text */
+			padding: 20px 0;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+		}
+
+		.header-content {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 20px;
+		}
+
+		.header-logo img {
+			height: 80px; /* Logo height */
+		}
+
+		.header-user img {
+			height: 40px; /* User icon height */
+			border-radius: 50%; /* Circular user icon */
+		}
+
+		.header-form {
+			display: flex;
+			align-items: center;
+		}
+
+		.header-form input {
+			padding: 10px;
+			border: 1px solid #4f81fe; /* Light border */
+			border-radius: 5px;
+			margin-right: 10px;
+			width: 200px; /* Fixed width */
+		}
+
+		.header-form button {
+			background-color: #007bff; /* Primary blue */
+			border: none;
+			border-radius: 5px;
+			padding: 10px 15px;
+			color: #4f81fe;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+
+		.header-form button:hover {
+			background-color: #0056b3; /* Darker shade on hover */
+		}
+
+		.navbar-part {
+			background-color: #4f81fe; /* White background */
+			padding: 10px 0;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+		}
+
+		.navbar-list {
+			display: flex;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		.navbar-item {
+			margin: 0 15px;
+		}
+
+		.navbar-link {
+			color: #343a40; /* Dark text */
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.navbar-link:hover {
+			color: #007bff; /* Primary blue on hover */
+		}
+
+		.dropdown-position-list {
+			display: none;
+			position: absolute;
+			background-color: #4f81fe; /* White background for dropdown */
+			padding: 10px;
+			border-radius: 5px;
+			z-index: 10;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+		}
+
+		.navbar-item:hover .dropdown-position-list {
+			display: block;
+		}
+
+		.cart-sidebar {
+			background-color: #4f81fe;
+			border-radius: 5px;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+		}
+
+		/* Add more styles as needed */
+	</style>
 </head>
 <body>
 
@@ -49,14 +154,13 @@
 
 				<div class="header-widget-group">
 					<li class="navbar-item dropdown">
-						<a  class="header-widget" title="Tài khoản">
+<!--						<a  class="header-widget" title="">-->
 							<i class="fas fa-user"></i>
 						</a>
 						<ul class="dropdown-position-list">
 							<th:block th:unless="${#request.remoteUser}">
 								<li><a th:href="@{/login}">Đăng nhập</a></li>
 								<li><a th:href="@{/register}">Đăng ký</a></li>
-								<li><a th:href="@{/forgotPassword}">Quên mật khẩu</a></li>
 							</th:block>
 							<th:block th:if="${#request.remoteUser}">
 								<li><a th:href="@{/profile}">Thông tin tài khoản</a></li>

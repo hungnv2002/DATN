@@ -9,8 +9,7 @@ import  DrSport.repository.ProductRepository;
 @Controller
 public class LoginController {
 
-	@Autowired
-	ProductRepository productRepository;
+
 
 	@GetMapping(value = "/login")
 	public String login() {

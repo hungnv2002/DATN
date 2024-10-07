@@ -84,11 +84,17 @@
                 <i class="icofont-star"></i>
 
               </div>
-              <h3 class="details-price">
-                <del>[[${#numbers.formatDecimal(product.price, 1, 'DEFAULT', 0, 'DEFAULT')}+' đ']]</del>
-                <span>[[${#numbers.formatDecimal(product.price - (product.price * product.discount/100), 1, 'DEFAULT', 0, 'DEFAULT')}+' đ']]</span>
-              </h3>
-              <p class="details-desc">
+				<h3 class="details-price">
+					<th:block th:if="${product.discount > 0}">
+						<del>[[${#numbers.formatDecimal(product.price, 1, 'DEFAULT', 0, 'DEFAULT')} + ' đ']]</del>
+						<span>[[${#numbers.formatDecimal(product.price - (product.price * product.discount / 100), 1, 'DEFAULT', 0, 'DEFAULT')} + ' đ']]</span>
+					</th:block>
+					<th:block th:unless="${product.discount > 0}">
+						<span>[[${#numbers.formatDecimal(product.price, 1, 'DEFAULT', 0, 'DEFAULT')} + ' đ']]</span>
+					</th:block>
+				</h3>
+
+				<p class="details-desc">
                 [[${product.description}]]
               </p>
               <div class="details-list-group">

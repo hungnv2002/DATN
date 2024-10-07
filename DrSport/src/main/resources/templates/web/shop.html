@@ -24,7 +24,7 @@
 
 <section
 		class="inner-section single-banner"
-		style="background: url(images/single-banner.jpg) no-repeat center">
+		style="background: url(/images/single-banner.jpg) no-repeat center">
 	<div class="container">
 		<h2>Sản phẩm</h2>
 		<ol class="breadcrumb">
@@ -143,13 +143,19 @@
 									<a href="javascript:void(0);">[[${item.productName}]]</a>
 								</h6>
 								<h6 class="product-price">
-									<del>[[${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')}+' đ']]</del>
-									<span>[[${#numbers.formatDecimal(item.price - (item.price * item.discount / 100), 1, 'DEFAULT', 0, 'DEFAULT')}+' đ']]<small></small></span>
+									<th:block th:if="${item.discount > 0}">
+										<del>[[${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')} + ' đ']]</del>
+										<span>[[${#numbers.formatDecimal(item.price - (item.price * item.discount / 100), 1, 'DEFAULT', 0, 'DEFAULT')} + ' đ']]<small></small></span>
+									</th:block>
+									<th:block th:unless="${item.discount > 0}">
+										<span>[[${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')} + ' đ']]<small></small></span>
+									</th:block>
 								</h6>
+
 
 								<th:block th:if="${item.quantity != 0}">
 									<a class="product-add1" title="Thêm giỏ hàng" th:href="@{/addToCart(productId=${item.productId})}">
-										<i class="fas fa-shopping-basket"></i><span>Thêm giỏ hàng</span>
+										<i></i><span>Thêm giỏ hàng</span>
 									</a>
 								</th:block>
 

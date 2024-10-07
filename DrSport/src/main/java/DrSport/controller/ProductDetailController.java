@@ -39,4 +39,5 @@ public class ProductDetailController extends CommomController{
 		List<Product> products = productRepository.listProductByCategory10(categoryId);
 		model.addAttribute("productByCategory", products);
 	}
+
 }
